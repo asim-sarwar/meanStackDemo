@@ -1,0 +1,26 @@
+<div class="clearfix">
+  <form ng-Submit="post()" ng-show="authenticated">
+    <h4>{{current_user}} says</h4>
+    <textarea required class="form-control" maxlength="200" rows="3" placeholder="Say something" ng-model="newPost.text"></textarea>
+    <input class="btn submit-btn pull-right" type="submit" value="Chirp!" />
+  </form>
+</div>
+<div id="post-stream">
+	<h4>Chirp Feed</h4>
+		<div class="post" ng-repeat="post in posts" ng-class-odd="'odd'" ng-class-even="'even'"> 
+			
+			<textarea required class="form-control" maxlength="200" rows="3" placeholder="Say something" ng-show="editing[$index]" ng-model="post.text"></textarea>
+            <button ng-show="editing[$index]" ng-click="update($index)">update</button>
+            <button ng-show="editing[$index]" ng-click="cancel($index)">cancel</button>
+
+			<p ng-hide="editing[$index]">{{post.text}}</p>
+			<small>Posted by @{{post.created_by}}</small>
+			<small class="pull-right">{{post.created_at | date:"h:mma 'on' MMM d, y"}}</small>
+			<button ng-show="authenticated" ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
+            <button ng-show="authenticated" ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
+
+            
+		</div>
+</div>
+
+
